@@ -10,14 +10,14 @@ public:
 	void creditMile() ;
 	void consumeMiles();
 	void cancelMiles();
-	
+
 };
 
 class MilesAccount
 {
 public:
 	int p_accnum ; f_miles;
-	
+
 };
 
 class Booking
@@ -30,11 +30,16 @@ public:
 	void pay();
 	void cancel();
 	void change();
-	
+
 };
 
 class Flight
 {
 public:
 	int time , date, miles ;
+};
+
+class bkgagsdihsda
+{
+
 };
