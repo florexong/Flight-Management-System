@@ -39,7 +39,4 @@ public:
 	int time , date, miles ;
 };
 
-class bkgagsdihsda
-{
 
-};
