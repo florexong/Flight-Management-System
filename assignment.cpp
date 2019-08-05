@@ -1,42 +1,116 @@
+
 #include <iostream>
-using namespace std ;
+#include <istream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
 
-class Passenger
-{
+using namespace std;
+
+// global vaarible;
+int numpas=0;
+
+class Passanger{
+private:
+	int passno;
+	string Fname;
+	string Lname;
+	vector<int> passportnum;
 public:
-	string p_name , passport_No ;
-	int m_card ;
+	int p_num;
+	void set_passangerinfo();
+	void set_passno(){ passno = p_num;}
+	int get_passno(){return passno;}
+	 vector<int>::iterator i;
+};
 
-	void creditMile() ;
-	void consumeMiles();
-	void cancelMiles();
+
+
+class Main_System: public Passanger{
+private:
+public:
+	void display_main();
 
 };
 
-class MilesAccount
+
+//################# Passanger ############################
+void Passanger::set_passangerinfo(){
+	cout<< " Welcome to Create Account\n";
+	cout << "Enter Passport Number : ";
+	cin >> p_num;
+	set_passno();
+	get_passno();
+	if(!passportnum.empty())
+	{
+		for(i=passportnum.begin(); i != passportnum.end();++i)
+		{
+			if(*i == get_passno()){
+				cout<<"The User is Exists ! \n";
+			}
+			else{
+				cout<<"this new";
+				numpas++;
+				passportnum.push_back(get_passno());
+				cout<<numpas;
+				break;
+			}
+		}
+	}
+	else
+	{
+		passportnum.push_back(get_passno());
+
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+//################## Main_System ###########################
+void Main_System::display_main(){
+	bool flag = true;
+	int choice;
+
+	while(flag)
+	{
+		cout<< "Welcome to Airline \n";
+		cout<< "1. Create Account \n";
+		cout<< "2. Exists Account \n";
+		cin >> choice;
+		if(choice == 1)
+		{
+			set_passangerinfo();
+
+		}
+
+
+	}
+
+
+}
+
+
+
+int main()
 {
-public:
-	int p_accnum ; f_miles;
+	Main_System main;
+	main.display_main();
 
-};
+	
 
-class Booking
-{
-public:
-	int date ;
-	char tier ;
 
-	void reserve();
-	void pay();
-	void cancel();
-	void change();
 
-};
+ return 0 ;
 
-class Flight
-{
-public:
-	int time , date, miles ;
-};
-
+}
 
