@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <istream>
 #include <string>
@@ -12,8 +11,66 @@ using namespace std;
 
 // global vaarible;
 int numpas=0;
+class MilesAccount
+{
+public:
+	int accnumber;
+	int flightMiles;
+	
+};
+class Booking
+{
+public:
+	string date;
+	bool passenger_class;
+	void reserve ;
+	void pay;
+	void cancel;
+	void change ;
+	
+};
+class flight
+{
+public:
+	string time;
+	string date;
+	int miles;
+	
+};
+class airport
+{
+public:
+	string name;
+	string code;
+	char country;
+	int fee;
+	
+};
+class airline
+{
+public:
+	string name;
+	string code;
+	
+};
 
-class Passanger{
+class FlightHandling
+{
+public:
+	string boardingGate;
+	string delay_time;
+	string date;
+	string time;
+	void startCheckIn;
+	void checkInPassenger;
+	void stopCheckIn;
+	void closeFlight;
+	void delayFlight;
+	void passengerBoarding;
+	void delay;	
+};
+
+class passenger{
 private:
 	int passno;
 	string Fname;
@@ -27,22 +84,21 @@ public:
 	int p_num;
 
 
-	void set_passangerinfo();//pasport
+	void set_passengerinfo();//pasport
 	void set_passno(){ passno = p_num;}
 	int get_passno(){return passno;}
 	bool check_element();
-	void set_allinfo();//all info of passanger
+	void set_allinfo();//all info of passenger
 	string get_Fname(){ return Fname;}
 	string get_Lname(){ return Lname;}
 	string get_Title(){ return Title;}
-	 vector<int>::iterator i;
-
+	vector<int>::iterator i;
 
 };
 
 
 
-class Main_System: public Passanger{
+class Main_System: public passenger{
 private:
 public:
 	void display_main();
@@ -51,17 +107,16 @@ public:
 };
 
 
-//########### Passanger #######################
+//########### passenger #######################
 
 
-void Passanger::set_allinfo(){
+void passenger::set_allinfo(){
 	this->Fname = Fname;
 	this->Lname = Lname;
 	this->Title = Title;
 }
 
-
-bool Passanger::check_element()
+bool passenger::check_element()
 {
 	bool a;
 	for(i= passportnum.begin();i != passportnum.end();i++)
@@ -78,7 +133,7 @@ bool Passanger::check_element()
 	return a;
 
 }
-void Passanger::set_passangerinfo(){
+void passenger::set_passengerinfo(){
     string over;
 	cout<< " Welcome to Create Account\n";
 	cout << "Enter Passport Number : ";
@@ -140,16 +195,9 @@ void Passanger::set_passangerinfo(){
 
 }
 
-
-
-
-
-
-
-
-
 //################## Main_System ###########################
-void Main_System::display_main(){
+void Main_System::display_main()
+{
 	bool flag = true;
 	int choice;
 
@@ -161,13 +209,11 @@ void Main_System::display_main(){
 		cin >> choice;
 		if(choice == 1)
 		{
-			set_passangerinfo();
+			set_passengerinfo();
 
 		}
 
-
 	}
-
 
 }
 
@@ -177,10 +223,6 @@ int main()
 {
 	Main_System main;
 	main.display_main();
-
-
-
-
 
  return 0 ;
 
