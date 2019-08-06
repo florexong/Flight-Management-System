@@ -25,7 +25,8 @@ private:
 	vector<string> DataTT;
 public:
 	int p_num;
-
+	int  passnum;
+	int num;// counter for passanger
 
 	void set_passangerinfo();//pasport
 	void set_passno(){ passno = p_num;}
@@ -35,6 +36,9 @@ public:
 	string get_Fname(){ return Fname;}
 	string get_Lname(){ return Lname;}
 	string get_Title(){ return Title;}
+	void display_passangerinfo();
+	int get_elenum();
+
 	 vector<int>::iterator i;
 
 
@@ -47,11 +51,35 @@ private:
 public:
 	void display_main();
 
-
 };
 
 
 //########### Passanger #######################
+
+
+
+void Passanger::display_passangerinfo(){
+
+
+	cout << " Please Enter Your Pssport Number : \n";
+	cin >> passnum;
+	num = get_elenum();
+	system("cls");
+	cout <<"Welcome "<<DataTT[num]<<"."<<DataFN[num]<<" "<<DataLN[num]<<"\n";
+}
+
+
+int Passanger::get_elenum(){
+	for (int i = 0; i < passportnum.size(); ++i)
+	{
+		if(passportnum[i] == passnum)
+		{
+			return i;
+		}
+
+	}
+}
+
 
 
 void Passanger::set_allinfo(){
@@ -136,7 +164,7 @@ void Passanger::set_passangerinfo(){
 	// {
 	// 	cout<<passportnum[i]<<DataFN[i]<<DataLN[i]<<DataTT[i]<<"\n";
 	// }
-	
+
 
 }
 
@@ -162,6 +190,11 @@ void Main_System::display_main(){
 		if(choice == 1)
 		{
 			set_passangerinfo();
+
+		}
+		if(choice == 2)
+		{
+			display_passangerinfo();
 
 		}
 
