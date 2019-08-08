@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <istream>
 #include <string>
@@ -11,66 +12,15 @@ using namespace std;
 
 // global vaarible;
 int numpas=0;
-class MilesAccount
-{
-public:
-	int accnumber;
-	int flightMiles;
-	
-};
-class Booking
-{
-public:
-	string date;
-	bool passenger_class;
-	void reserve ;
-	void pay;
-	void cancel;
-	void change ;
-	
-};
-class flight
-{
-public:
-	string time;
-	string date;
-	int miles;
-	
-};
-class airport
-{
-public:
-	string name;
-	string code;
-	char country;
-	int fee;
-	
-};
-class airline
-{
-public:
-	string name;
-	string code;
-	
+
+
+class Booking{
+
 };
 
-class FlightHandling
-{
-public:
-	string boardingGate;
-	string delay_time;
-	string date;
-	string time;
-	void startCheckIn;
-	void checkInPassenger;
-	void stopCheckIn;
-	void closeFlight;
-	void delayFlight;
-	void passengerBoarding;
-	void delay;	
-};
 
-class passenger{
+
+class Passanger{
 private:
 	int passno;
 	string Fname;
@@ -84,30 +34,56 @@ public:
 	int p_num;
 	int  passnum;
 	int num;// counter for passanger
+	Passanger()= default;
 
-	void set_passengerinfo();//pasport
+	void set_passangerinfo();//pasport
 	void set_passno(){ passno = p_num;}
 	int get_passno(){return passno;}
 	bool check_element();
-	void set_allinfo();//all info of passenger
+	void set_allinfo();//all info of passanger
 	string get_Fname(){ return Fname;}
 	string get_Lname(){ return Lname;}
 	string get_Title(){ return Title;}
-<<<<<<< HEAD
 	void display_passangerinfo();
 	int get_elenum();
 
 	 vector<int>::iterator i;
 
-=======
-	vector<int>::iterator i;
->>>>>>> da45cc4fc097392afe812841bded95839548edb4
+};
+
+class MilesAccount{
+private:
+public:
 
 };
 
+class Airline
+{
+public:
+	Airline()= default;
+	string airline_name();
+	string airline_code();
 
+};
 
-class Main_System: public passenger{
+class Fligh{
+private:
+public:
+
+};
+
+class Airport{
+private:
+public:
+	string set_country();
+};
+
+class Fligth_Handling{
+private:
+public:
+};
+
+class Main_System: public Passanger , public Airline{
 private:
 public:
 	void display_main();
@@ -115,10 +91,9 @@ public:
 };
 
 
-//########### passenger #######################
+//########### Passanger #######################
 
 
-<<<<<<< HEAD
 
 void Passanger::display_passangerinfo(){
 
@@ -145,15 +120,13 @@ int Passanger::get_elenum(){
 
 
 void Passanger::set_allinfo(){
-=======
-void passenger::set_allinfo(){
->>>>>>> da45cc4fc097392afe812841bded95839548edb4
 	this->Fname = Fname;
 	this->Lname = Lname;
 	this->Title = Title;
 }
 
-bool passenger::check_element()
+
+bool Passanger::check_element()
 {
 	bool a;
 	for(i= passportnum.begin();i != passportnum.end();i++)
@@ -170,7 +143,7 @@ bool passenger::check_element()
 	return a;
 
 }
-void passenger::set_passengerinfo(){
+void Passanger::set_passangerinfo(){
     string over;
 	cout<< " Welcome to Create Account\n";
 	cout << "Enter Passport Number : ";
@@ -232,9 +205,35 @@ void passenger::set_passengerinfo(){
 
 }
 
+
+//########################## Airline ###########################
+string  Airline::airline_name(){
+	int num;
+	string AirlineName[] = {"A220", "A320", "A330", "A350", "A380"};
+	num = (rand()% 5);
+	return AirlineName[num];
+
+}
+
+string Airline:: airline_code(){
+
+	int num;
+	string Airlinecode[] = {"AK6301", "AK7802", "AK5023", "Ak3054", "AK2001"};
+	num = (rand()%5);
+	return Airlinecode[num];
+}
+
+
+
+//#################### Airport #############################
+string Airport::set_country(){
+	int num;
+	string country[] = {"Malaysia", "England", "Indonesia", "Australia", "Japan"}
+}
+
+
 //################## Main_System ###########################
-void Main_System::display_main()
-{
+void Main_System::display_main(){
 	bool flag = true;
 	int choice;
 
@@ -246,25 +245,35 @@ void Main_System::display_main()
 		cin >> choice;
 		if(choice == 1)
 		{
-			set_passengerinfo();
+			set_passangerinfo();
 
 		}
 		if(choice == 2)
 		{
 			display_passangerinfo();
+			cout << airline_name();
+			cout << airline_code();
 
 		}
 
+
 	}
+
 
 }
 
 
 
+
 int main()
 {
+    srand(time(NULL));
 	Main_System main;
 	main.display_main();
+
+
+
+
 
  return 0 ;
 
