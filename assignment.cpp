@@ -1,264 +1,316 @@
-
 #include <iostream>
-#include <istream>
 #include <string>
 #include <fstream>
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
+#include <time.h>
+
 
 using namespace std;
 
-// global vaarible;
-int numpas=0;
+class booking{
+private:
 
+public:
+	void reserve();
+	void pay();
+	void cancel();
+	void change();
 
-class Booking{
 
 };
 
-
-
-class Passanger{
+class Economyclass{ //poly
 private:
-	int passno;
-	string Fname;
-	string Lname;
-	string Title;
-	vector<int> passportnum;
-	vector<string> DataFN;
-	vector<string> DataLN;
-	vector<string> DataTT;
 public:
-	int p_num;
-	int  passnum;
-	int num;// counter for passanger
-	Passanger()= default;
 
-	void set_passangerinfo();//pasport
-	void set_passno(){ passno = p_num;}
-	int get_passno(){return passno;}
-	bool check_element();
-	void set_allinfo();//all info of passanger
-	string get_Fname(){ return Fname;}
-	string get_Lname(){ return Lname;}
-	string get_Title(){ return Title;}
-	void display_passangerinfo();
-	int get_elenum();
+};
 
-	 vector<int>::iterator i;
-
+class Businessclass{ //poly
+private:
+public:
 };
 
 class MilesAccount{
 private:
 public:
-
 };
 
-class Airline
-{
-public:
-	Airline()= default;
-	string airline_name();
-	string airline_code();
-
-};
-
-class Fligh{
+class Flight{
 private:
 public:
+};
 
+class Passenger{
+private:
+public:
 };
 
 class Airport{
 private:
+	string name;
+	string code;
+	string country;
+
 public:
 	string set_country();
+    void set_allvalue(string name,string code);
+	string get_country(){return country;}
+	string get_name(){return name;} 
+	string get_code(){return code;} 
+	double get_totalmiles(string Dairport , string Aairport);
+	double calculation(double nump);
+
+
+
 };
 
-class Fligth_Handling{
+class Airline{
+public:
+	string airletter = "MH";
+	int generatenum();
+	string code_airline();
+	string get_airplane_name();
+	int get_airplane_size(string airline_name);
+};
+
+class Flight_Handling{
 private:
 public:
 };
 
-class Main_System: public Passanger , public Airline{
-private:
-public:
-	void display_main();
-
-};
-
-
-//########### Passanger #######################
 
 
 
-void Passanger::display_passangerinfo(){
+///////////////////////  Airport ///////////////////////
 
-
-	cout << " Please Enter Your Pssport Number : \n";
-	cin >> passnum;
-	num = get_elenum();
-	system("cls");
-	cout <<"Welcome "<<DataTT[num]<<"."<<DataFN[num]<<" "<<DataLN[num]<<"\n";
+double Airport::calculation(double nump){
+	double price;
+	price = nump * 0.25;
+	return price;
 }
 
-
-int Passanger::get_elenum(){
-	for (int i = 0; i < passportnum.size(); ++i)
+double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get total milies 
+	double num;
+	if(Dairport == "Langkawi")
 	{
-		if(passportnum[i] == passnum)
+		if(Aairport == "Kuala Lumpur")
 		{
-			return i;
+			num = 285.831;
+			return num;
 		}
-
-	}
-}
-
-
-
-void Passanger::set_allinfo(){
-	this->Fname = Fname;
-	this->Lname = Lname;
-	this->Title = Title;
-}
-
-
-bool Passanger::check_element()
-{
-	bool a;
-	for(i= passportnum.begin();i != passportnum.end();i++)
-	{
-		if(*i == get_passno())
+			
+		else if(Aairport == "Dubai")
 		{
-			a =  false;
+			num = 3203;
+			return num;
 		}
-		else{
-			a=  true;
-
-		}
-	}
-	return a;
-
-}
-void Passanger::set_passangerinfo(){
-    string over;
-	cout<< " Welcome to Create Account\n";
-	cout << "Enter Passport Number : ";
-	cin >> p_num;
-	set_passno();
-	get_passno();
-	if(!passportnum.empty())
-	{
-		if(check_element() == true)
+		else if(Aairport == "London")
 		{
-			passportnum.push_back(get_passno());
-			getline(cin,over);
-			cout << "Enter First Name : ";
-			getline(cin, Fname);
-			cout << endl;
-			cout << "Enter Last Name : ";
-			getline(cin, Lname);
-			cout << endl;
-			cout << "Enter Title  : ";
-			getline(cin, Title);
-			cout << endl;
-
-			DataFN.push_back(get_Fname());
-			DataLN.push_back(get_Lname());
-			DataTT.push_back(get_Title());
-
-
+			num = 6284;
+			return num;
 		}
-		else{
-			cout<<"this Account Already Registered \n";
-
+		else
+		{
+			num = 1293;
+			return num;
 		}
-
 	}
-	else
+
+		if(Dairport == "Kuala Lumpur")
 	{
-		passportnum.push_back(get_passno());
-		getline(cin,over);
-		cout << "Enter First Name : ";
-		getline(cin, Fname);
-		cout << endl;
-		cout << "Enter Last Name : ";
-		getline(cin, Lname);
-		cout << endl;
-		cout << "Enter Title  : ";
-		getline(cin, Title);
-		cout << endl;
-
-		DataFN.push_back(get_Fname());
-		DataLN.push_back(get_Lname());
-		DataTT.push_back(get_Title());
-
+		if(Aairport == "Langkawi")
+			{
+			num = 285.831;
+			return num;
+			}
+			
+		else if(Aairport == "Dubai")
+			{
+			num = 3446;
+			return num;
+			}
+		else if(Aairport == "London")
+			{
+			num = 6264;
+			return num;
+			}
+		else
+			{
+			num = 830.1; //sarawak
+			return num;
+			}
 	}
-	// for(int i = 0;i < passportnum.size();i++)
-	// {
-	// 	cout<<passportnum[i]<<DataFN[i]<<DataLN[i]<<DataTT[i]<<"\n";
-	// }
+
+		if(Dairport == "Kuala Lumpur")
+		{
+		if(Aairport == "Langkawi")
+			{
+			num = 285.831;
+			return num;
+			}
+				
+		else if(Aairport == "Dubai")
+			{
+			num = 3446;
+			return num;
+			}
+		else if(Aairport == "London")
+			{
+			num = 6264;
+			return num;
+			}
+		else
+			{
+			num = 830.1; //sarawak
+			return num;
+			}
+		}
+
+		if(Dairport == "Dubai")
+		{
+		if(Aairport == "Langkawi")
+			{
+			num = 3203;
+			return num;
+			}
+				
+		else if(Aairport == "Kuala Lumpur")
+			{
+			num = 3446;
+			return num;
+			}
+		else if(Aairport == "London")
+			{
+			num = 3417.33;
+			return num;
+			}
+		else
+			{ 
+			num = 7805.15; //sarawak
+			return num;
+			}
+		}
 
 
+		if(Dairport == "Sarawak")
+		{
+		if(Aairport == "Langkawi")
+			{
+			num = 1293;
+			return num;
+			}
+				
+		else if(Aairport == "Kuala Lumpur")
+			{
+			num = 830.1;
+			return num;
+			}
+		else if(Aairport == "Dubai")
+			{
+			num =7805.15;
+			return num;
+			}
+		else
+			{
+			num = 7800; // london
+			return num;
+			}
+		}
+
+
+
+		if(Dairport == "London")
+		{
+		if(Aairport == "Langkawi")
+			{
+			num = 6284;
+			return num;
+			}
+				
+		else if(Aairport == "Kuala Lumpur")
+			{
+			num =  6264;
+			return num;
+			}
+		else if(Aairport == "Dubai")
+			{
+			num =3417.33;
+			return num;
+			}
+		else
+			{
+			num = 7800; // sarawak
+			return num;
+			}
+		}
+		
+}
+
+string Airport::set_country(){
+	int num;
+	string AirlineName[] = {"Langkawi", "Kuala Lumpur", "Dubai", "Sarawak", "London"};
+	num = (rand()% 5);
+	return AirlineName[num];
 }
 
 
-//########################## Airline ###########################
-string  Airline::airline_name(){
+void  Airport::set_allvalue(string name,string code ){
+	this->name = name;
+	this->code = code;
+	country = set_country();
+}
+
+
+
+
+
+
+//////////////////// Airline  //////////////////////////////////////////
+int Airline::generatenum(){ // genarate number 
+	int num;
+	num =(rand() % 9000) + 1000;
+	return num;
+}
+string Airline::code_airline(){
+	string strnum;
+	string airlinecode;
+	strnum = to_string(generatenum());
+	airlinecode = airletter + strnum;
+	return airlinecode;
+}
+
+string Airline::get_airplane_name(){ // generate name of airplane 
 	int num;
 	string AirlineName[] = {"A220", "A320", "A330", "A350", "A380"};
 	num = (rand()% 5);
 	return AirlineName[num];
-
 }
 
-string Airline:: airline_code(){
-
-	int num;
-	string Airlinecode[] = {"AK6301", "AK7802", "AK5023", "Ak3054", "AK2001"};
-	num = (rand()%5);
-	return Airlinecode[num];
-}
-
-
-
-//#################### Airport #############################
-string Airport::set_country(){
-	int num;
-	string country[] = {"Malaysia", "England", "Indonesia", "Australia", "Japan"}
-}
-
-
-//################## Main_System ###########################
-void Main_System::display_main(){
-	bool flag = true;
-	int choice;
-
-	while(flag)
-	{
-		cout<< "Welcome to Airline \n";
-		cout<< "1. Create Account \n";
-		cout<< "2. Exists Account \n";
-		cin >> choice;
-		if(choice == 1)
-		{
-			set_passangerinfo();
-
-		}
-		if(choice == 2)
-		{
-			display_passangerinfo();
-			cout << airline_name();
-			cout << airline_code();
-
-		}
-
-
+int Airline::get_airplane_size(string airline_name){  // give the plane size
+	int size;
+	if(airline_name == "A220"){
+		size = 160;
+		return size;
+	}
+	else if(airline_name == "A320"){
+		size = 170;
+		return size;
 	}
 
+	else if(airline_name == "A330")
+	{
+		size = 335;
+		return size;
+	}
+	else if(airline_name == "A350")
+	{
+		size = 350;
+		return size;
+	}
+	else
+	{
+		size = 860;
+		return size;
+	}
 
 }
 
@@ -267,15 +319,19 @@ void Main_System::display_main(){
 
 int main()
 {
-    srand(time(NULL));
-	Main_System main;
-	main.display_main();
+	double num;
+	srand(time(NULL));
+	Airport a;
+	num =a.get_totalmiles("Dubai","Langkawi");
+	cout<<a.calculation(num);
 
 
-
+	
 
 
  return 0 ;
 
 }
+
+
 
