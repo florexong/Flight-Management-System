@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
 #include <fstream>
 #include <time.h>
 
@@ -17,7 +19,7 @@ public:
 	void change();
 	virtual string class_A()=0;
 	void get_fligth_details();
-	Airport a;
+	// Airport a;
 
 };
 
@@ -33,7 +35,7 @@ public:
 class Businessclass{ //poly
 private:
 public:
-	string class_A() 
+	string class_A() ;
 };
 
 class MilesAccount{
@@ -57,13 +59,13 @@ private:
 
 public:
 	string get_Fname(){return First_name;}
-	string get_Lname(){return Last_name;} 
-	string get_title(){return title;} 
+	string get_Lname(){return Last_name;}
+	string get_title(){return title;}
 	int get_passportnum(){return passport_num;}
 	void  set_info();
 	bool check_passort();
-	void get_milecard(){return milecard;}
-	
+	int get_milecard(){return milecard;}
+
 
 
 
@@ -75,17 +77,17 @@ private:
 	string code;
 	string country;
 	double fee;
-	Airline air;
+	// Airline air;
 
 public:
 	string set_country();
     void set_allvalue(string name,string code,double fee , string country);
 	string get_country(){return country;}
-	string get_name(){return name;} 
-	string get_code(){return code;} 
+	string get_name(){return name;}
+	string get_code(){return code;}
 	double get_fee(){return fee;}
 	double get_totalmiles(string Dairport , string Aairport);
-	double calculation(double nump); 
+	double calculation(double nump);
 
 
 
@@ -107,18 +109,46 @@ public:
 
 //////////////////   Passanger ///////////////////////
 void set_info(){
-	string First_name;
-	string Last_name;
-	string title;
-	int passport_num;
+	bool a = false;
+	string Passnum,Fname , Lname ,title ;
+	string line,word,temp,test;
+	fstream CusFile ;
+	vector <string> row;
 
-	cout << "Welcome"<<endl;
-	cout <<"Enter passport num"<<endl;
-	cin >>passport_num;
-	// checking for new or old user ....
-	// if new get name then display option 
-	//esle display option 
+	while(!a)
+	{
+		CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
+		cout <<"Please enter your passport number :";
+		getline(cin,Passnum);
+		while(getline(CusFile,line))
+		{
+			row.clear();
+			stringstream s(line);
+			while(getline(s,word,','))
+			{
+				row.push_back(word);
+			}
+			while(Passnum == row[0])
+			{
+				cout << "Passport Number already exist in the system !!! \n";
+				cout << "Please Enter different passport number :";
+				getline(cin,Passnum);
+			}
+		}
+		CusFile.close();
+		CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
+		cout << "Enter your surname :";
+		cin >> Fname;
+		cout << "Enter your last name :";
+		getline(cin,test);
+		getline(cin,Lname);
+		cout << "Enter your title (Mr,Mrs,Dr,Sir and etc) :";
+		cin >> title;
+		CusFile << Passnum << "," <<Fname <<","<<Lname << ","<< title<<endl;
+		CusFile.close();
+		a = true ;
 
+	}
 
 }
 
@@ -132,7 +162,7 @@ double Airport::calculation(double nump){
 	return price;
 }
 
-double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get total milies 
+double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get total milies
 	double num;
 	if(Dairport == "Langkawi")
 	{
@@ -141,7 +171,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 285.831;
 			return num;
 		}
-			
+
 		else if(Aairport == "Dubai")
 		{
 			num = 3203;
@@ -166,7 +196,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 285.831;
 			return num;
 			}
-			
+
 		else if(Aairport == "Dubai")
 			{
 			num = 3446;
@@ -191,7 +221,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 285.831;
 			return num;
 			}
-				
+
 		else if(Aairport == "Dubai")
 			{
 			num = 3446;
@@ -216,7 +246,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 3203;
 			return num;
 			}
-				
+
 		else if(Aairport == "Kuala Lumpur")
 			{
 			num = 3446;
@@ -228,7 +258,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			return num;
 			}
 		else
-			{ 
+			{
 			num = 7805.15; //sarawak
 			return num;
 			}
@@ -242,7 +272,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 1293;
 			return num;
 			}
-				
+
 		else if(Aairport == "Kuala Lumpur")
 			{
 			num = 830.1;
@@ -269,7 +299,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 6284;
 			return num;
 			}
-				
+
 		else if(Aairport == "Kuala Lumpur")
 			{
 			num =  6264;
@@ -286,7 +316,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			return num;
 			}
 		}
-		
+
 }
 
 string Airport::set_country(){
@@ -311,7 +341,7 @@ void  Airport::set_allvalue(string name,string code,double fee , string country)
 
 
 //////////////////// Airline  //////////////////////////////////////////
-int Airline::generatenum(){ // genarate number 
+int Airline::generatenum(){ // genarate number
 	int num;
 	num =(rand() % 9000) + 1000;
 	return num;
@@ -324,7 +354,7 @@ string Airline::code_airline(){
 	return airlinecode;
 }
 
-string Airline::get_airplane_name(){ // generate name of airplane 
+string Airline::get_airplane_name(){ // generate name of airplane
 	int num;
 	string AirlineName[] = {"A220", "A320", "A330", "A350", "A380"};
 	num = (rand()% 5);
@@ -369,15 +399,16 @@ int main()
 	srand(time(NULL));
 	Airport a;
 	num =a.get_totalmiles("Dubai","Langkawi");
-	cout<<a.calculation(num);
+	cout<<a.calculation(num)<< endl;
+	set_info();
 
 
-	
 
 
  return 0 ;
 
 }
+
 
 
 
