@@ -8,25 +8,32 @@ using namespace std;
 
 class booking{
 private:
+int date;
 
 public:
 	void reserve();
 	void pay();
 	void cancel();
 	void change();
-
+	virtual string class_A()=0;
+	void get_fligth_details();
+	Airport a;
 
 };
 
 class Economyclass{ //poly
 private:
 public:
+	string class_A();
+
+
 
 };
 
 class Businessclass{ //poly
 private:
 public:
+	string class_A() 
 };
 
 class MilesAccount{
@@ -41,7 +48,25 @@ public:
 
 class Passenger{
 private:
+	string First_name;
+	string Last_name;
+	string title;
+	int passport_num;
+	int  milecard;
+
+
 public:
+	string get_Fname(){return First_name;}
+	string get_Lname(){return Last_name;} 
+	string get_title(){return title;} 
+	int get_passportnum(){return passport_num;}
+	void  set_info();
+	bool check_passort();
+	void get_milecard(){return milecard;}
+	
+
+
+
 };
 
 class Airport{
@@ -49,15 +74,18 @@ private:
 	string name;
 	string code;
 	string country;
+	double fee;
+	Airline air;
 
 public:
 	string set_country();
-    void set_allvalue(string name,string code);
+    void set_allvalue(string name,string code,double fee , string country);
 	string get_country(){return country;}
 	string get_name(){return name;} 
 	string get_code(){return code;} 
+	double get_fee(){return fee;}
 	double get_totalmiles(string Dairport , string Aairport);
-	double calculation(double nump);
+	double calculation(double nump); 
 
 
 
@@ -77,6 +105,22 @@ private:
 public:
 };
 
+//////////////////   Passanger ///////////////////////
+void set_info(){
+	string First_name;
+	string Last_name;
+	string title;
+	int passport_num;
+
+	cout << "Welcome"<<endl;
+	cout <<"Enter passport num"<<endl;
+	cin >>passport_num;
+	// checking for new or old user ....
+	// if new get name then display option 
+	//esle display option 
+
+
+}
 
 
 
@@ -253,10 +297,12 @@ string Airport::set_country(){
 }
 
 
-void  Airport::set_allvalue(string name,string code ){
+void  Airport::set_allvalue(string name,string code,double fee , string country){
 	this->name = name;
 	this->code = code;
-	country = set_country();
+	this->fee = fee;
+	this->country = country;
+
 }
 
 
