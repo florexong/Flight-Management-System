@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <vector>
 #include <fstream>
 #include <time.h>
 
@@ -19,7 +17,6 @@ public:
 	void change();
 	virtual string class_A()=0;
 	void get_fligth_details();
-	// Airport a;
 
 };
 
@@ -27,15 +24,12 @@ class Economyclass{ //poly
 private:
 public:
 	string class_A();
-
-
-
 };
 
 class Businessclass{ //poly
 private:
 public:
-	string class_A() ;
+	string class_A();
 };
 
 class MilesAccount{
@@ -71,28 +65,6 @@ public:
 
 };
 
-class Airport{
-private:
-	string name;
-	string code;
-	string country;
-	double fee;
-	// Airline air;
-
-public:
-	string set_country();
-    void set_allvalue(string name,string code,double fee , string country);
-	string get_country(){return country;}
-	string get_name(){return name;}
-	string get_code(){return code;}
-	double get_fee(){return fee;}
-	double get_totalmiles(string Dairport , string Aairport);
-	double calculation(double nump);
-
-
-
-};
-
 class Airline{
 public:
 	string airletter = "MH";
@@ -102,6 +74,32 @@ public:
 	int get_airplane_size(string airline_name);
 };
 
+class Airport{
+private:
+	string name;
+	string code;
+	string country;
+	double fee;
+
+public:
+    Airline plane;
+    Airline *pln = &plane;
+	string set_country();
+    void set_allvalue();
+	string get_country(){return country;}
+	string get_name(){return name;}
+	string get_code(){return code;}
+	double get_fee(){return fee;}
+	double get_totalmiles(string Dairport , string Aairport);
+	double calculation(double nump);
+	void test(){std::cout<<name<<":"<<code;}
+
+
+
+};
+
+
+
 class Flight_Handling{
 private:
 public:
@@ -109,46 +107,18 @@ public:
 
 //////////////////   Passanger ///////////////////////
 void set_info(){
-	bool a = false;
-	string Passnum,Fname , Lname ,title ;
-	string line,word,temp,test;
-	fstream CusFile ;
-	vector <string> row;
+	string First_name;
+	string Last_name;
+	string title;
+	int passport_num;
 
-	while(!a)
-	{
-		CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
-		cout <<"Please enter your passport number :";
-		getline(cin,Passnum);
-		while(getline(CusFile,line))
-		{
-			row.clear();
-			stringstream s(line);
-			while(getline(s,word,','))
-			{
-				row.push_back(word);
-			}
-			while(Passnum == row[0])
-			{
-				cout << "Passport Number already exist in the system !!! \n";
-				cout << "Please Enter different passport number :";
-				getline(cin,Passnum);
-			}
-		}
-		CusFile.close();
-		CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
-		cout << "Enter your surname :";
-		cin >> Fname;
-		cout << "Enter your last name :";
-		getline(cin,test);
-		getline(cin,Lname);
-		cout << "Enter your title (Mr,Mrs,Dr,Sir and etc) :";
-		cin >> title;
-		CusFile << Passnum << "," <<Fname <<","<<Lname << ","<< title<<endl;
-		CusFile.close();
-		a = true ;
+	cout << "Welcome"<<endl;
+	cout <<"Enter passport num"<<endl;
+	cin >>passport_num;
+	// checking for new or old user ....
+	// if new get name then display option
+	//esle display option
 
-	}
 
 }
 
@@ -327,11 +297,11 @@ string Airport::set_country(){
 }
 
 
-void  Airport::set_allvalue(string name,string code,double fee , string country){
-	this->name = name;
-	this->code = code;
-	this->fee = fee;
-	this->country = country;
+void  Airport::set_allvalue(){
+	this->name = pln->get_airplane_name();
+	this->code = pln->code_airline();
+	//this->fee = fee;
+	//this->country = country;
 
 }
 
@@ -398,9 +368,9 @@ int main()
 	double num;
 	srand(time(NULL));
 	Airport a;
-	num =a.get_totalmiles("Dubai","Langkawi");
-	cout<<a.calculation(num)<< endl;
-	set_info();
+	a.set_allvalue();
+	a.test();
+
 
 
 
@@ -408,7 +378,6 @@ int main()
  return 0 ;
 
 }
-
 
 
 
