@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <time.h>
+#include <vector>
 
 
 using namespace std;
@@ -78,20 +79,23 @@ class Airport{
 private:
 	string name;
 	string code;
-	string country;
+	string countryA;
+	string countryD;
 	double fee;
 
 public:
     Airline plane;
     Airline *pln = &plane;
 	string set_country();
-    void set_allvalue();
-	string get_country(){return country;}
+    void set_pairNC();
+    void set_countryA();
+    void set_countryD();
+	string get_countryA(){return countryA;}
+	string get_countryD(){return countryD;}
 	string get_name(){return name;}
 	string get_code(){return code;}
 	double get_fee(){return fee;}
 	double get_totalmiles(string Dairport , string Aairport);
-	double calculation(double nump);
 	void test(){std::cout<<name<<":"<<code;}
 
 
@@ -124,13 +128,10 @@ void set_info(){
 
 
 
+
+
 ///////////////////////  Airport ///////////////////////
 
-double Airport::calculation(double nump){
-	double price;
-	price = nump * 0.25;
-	return price;
-}
 
 double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get total milies
 	double num;
@@ -297,15 +298,21 @@ string Airport::set_country(){
 }
 
 
-void  Airport::set_allvalue(){
+
+void  Airport::set_pairNC(){
 	this->name = pln->get_airplane_name();
 	this->code = pln->code_airline();
-	//this->fee = fee;
-	//this->country = country;
-
+	this->countryD = set_country();
+	this->countryA = set_country();
 }
 
+void Airport::set_countryA(){
+	countryA = set_country();
+}
 
+void Airport::set_countryD(){
+	countryD = set_country();
+}
 
 
 
@@ -367,9 +374,36 @@ int main()
 {
 	double num;
 	srand(time(NULL));
-	Airport a;
-	a.set_allvalue();
-	a.test();
+	vector<Airport*> list1;
+
+	Airport* air;
+	for(int i=0;i<10;i++)
+	{
+		air = new Airport();
+		air->set_pairNC();
+		list1.push_back(air);
+	}
+
+
+	
+	// for(int i =0;i<10;i++)
+	// {
+	// 	if(list1[i]->get_countryA == list1[i]->get_countryD)
+	// 	{
+	// 		list1[i]->set_countryA();
+	// 		list1[i]->set_countryD();
+
+	// 	}
+	// }
+
+	vector<Airport>::iterator it;
+	for(auto it = list1.begin();it != list1.end(); ++it){
+		cout <<"Airline Name :"<<(*it)->get_name()<<endl;
+		cout <<"Airline code :"<<(*it)->get_code()<<endl;
+		cout <<"Depature :"<<(*it)->get_countryD()<<endl;
+		cout <<"Arrival  :"<<(*it)->get_countryA()<<endl;
+		cout <<"------------------------\n";
+	}
 
 
 
