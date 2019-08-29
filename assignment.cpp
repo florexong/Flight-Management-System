@@ -367,9 +367,6 @@ int Airline::get_airplane_size(string airline_name){  // give the plane size
 
 }
 
-
-
-
 int main()
 {
 	double num;
@@ -379,22 +376,25 @@ int main()
 	Airport* air;
 	for(int i=0;i<10;i++)
 	{
-		air = new Airport();
+        air = new Airport();
+
+
 		air->set_pairNC();
+
 		list1.push_back(air);
 	}
 
 
-	
-	// for(int i =0;i<10;i++)
-	// {
-	// 	if(list1[i]->get_countryA == list1[i]->get_countryD)
-	// 	{
-	// 		list1[i]->set_countryA();
-	// 		list1[i]->set_countryD();
 
-	// 	}
-	// }
+	for(int i =0;i<10;i++)
+	{
+		if((list1[i]->get_countryA()) == (list1[i]->get_countryD()))
+		{
+			list1[i]->set_countryA();
+			list1[i]->set_countryD();
+
+		}
+	}
 
 	vector<Airport>::iterator it;
 	for(auto it = list1.begin();it != list1.end(); ++it){
