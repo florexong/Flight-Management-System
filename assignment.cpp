@@ -9,7 +9,15 @@
 
 
 using namespace std;
-
+class logininterface
+{
+public:
+	void CusRegister();
+	void CusLogin();
+	void login();
+	void autoadmin();
+	void ALogin();
+};
 class booking{
 private:
 int date;
@@ -122,8 +130,8 @@ void Passenger::set_info(){
 	string Last_name;
 	string title;
 	int passport_num;
-	int passport_numf;   
-	vector<string> row; 
+	int passport_numf;
+	vector<string> row;
     string line, word, temp;
 
 	cout << "Welcome"<<endl;
@@ -311,7 +319,7 @@ void  Airport::set_pairNC(){
 	this->countryA = set_country();
 }
 
-void Airport::set_countryA(){ // overwrite 
+void Airport::set_countryA(){ // overwrite
 	countryA = set_country();
 }
 
@@ -395,7 +403,7 @@ void App::run(){
 			list1[i]->set_countryA();
 			list1[i]->set_countryD();
 
-		}	
+		}
 	}
 
 	vector<Airport>::iterator it;
@@ -408,14 +416,205 @@ void App::run(){
 	}
 }
 
+void CusRegister()
+{
+	bool a = false;
+	string Passnum,Fname , Lname ,title ;
+	string line,word,temp,test,temp1;
+	fstream CusFile ;
+	vector <string> row;
+	CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
+
+
+	while(!a)
+	{
+		cout <<"Please enter your passport number :";
+		getline(cin,test);
+		getline(cin,Passnum);
+		while(getline(CusFile,line))
+		{
+			row.clear();
+			stringstream s(line);
+			while(getline(s,word,','))
+			{
+				row.push_back(word);
+			}
+			while(Passnum == row[0])
+			{
+				cout << "Passport Number already exist in the system !!! \n";
+				cout << "Please Enter different passport number :";
+				getline(cin,Passnum);
+				CusFile.close();
+				CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
+			}
+		}
+		CusFile.close();
+		CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
+		cout << "Enter your surname :";
+		cin >> Fname;
+		cout << "Enter your last name :";
+		getline(cin,test);
+		getline(cin,Lname);
+		cout << "Enter your title (Mr,Mrs,Dr,Sir and etc) :";
+		cin >> title;
+		CusFile << Passnum << "," <<Fname <<","<<Lname << ","<< title<<endl;
+		CusFile.close();
+		a = true ;
+
+	}
+
+}
+
+void CusLogin()
+{
+	bool a = false;
+	int count =0;
+	string Passnum,Fname , Lname ,title, roll ;
+	string line,word,temp,test,temp1;
+	fstream CusFile ;
+	vector <string> row;
+	CusFile.open("PassengerFile.csv",ios::app |ios::in |ios::out);
+	cout <<"Welcome please enter your passport number to check in :";
+	getline(cin,test);
+	getline(cin,Passnum);
+
+	while(!a)
+	{
+		while(getline(CusFile,line))
+		{
+			row.clear();
+			stringstream s(line);
+			while(getline(s,word,','))
+			{
+				row.push_back(word);
+			}
+
+			roll = row[0];
+
+			if (roll == Passnum)
+			{
+				count = 1 ;
+				cout <<"Welcome back,"<< row[3] <<"."<< row[1] << row[2] << "Passport number :"<<row[0];
+				a = true;
+				CusFile.close();
+			}
+
+		}
+		if (count == 0)
+		{
+			cout << "Info not found ."<<endl;
+			cout << "Please enter the correct passport number:";
+			getline(cin,Passnum);
+		}
+	}
+}
+void autoadmin()
+{
+	fstream CusFile ;
+	string a = "Admin" , b = "Admin";
+	CusFile.open("Admin.csv",ios::app |ios::in |ios::out);
+	CusFile << a << "," << b <<endl;
+	CusFile.close();
+
+}
+
+void ALogin()
+{
+	bool a = false;
+	int count =0;
+	string Username ,Password ;
+	string line,word,temp,test,temp1,roll, roll1;
+	fstream CusFile ;
+	vector <string> row;
+	CusFile.open("Admin.csv",ios::app |ios::in |ios::out);
+	cout <<"Welcome to Admin login!\n";
+	getline(cin,test);
+	cout << "Username :";
+	getline(cin,Username);
+	cout << "Password :";
+	getline(cin,Password);
+
+	while(!a)
+	{
+		while(getline(CusFile,line))
+		{
+			row.clear();
+			stringstream s(line);
+			while(getline(s,word,','))
+			{
+				row.push_back(word);
+			}
+
+			roll = row[0];
+			roll1 = row[1];
+
+			if (roll == Username && roll1 == Password)
+			{
+				count = 1 ;
+				cout <<"Welcome back";
+				a = true;
+				CusFile.close();
+			}
+
+		}
+		if (count == 0)
+		{
+			cout << "Admin does not found ."<<endl;
+			cout << "Please enter the correct info.\n";
+			cout << "Username :";
+			getline(cin,Username);
+			cout << "Password :";
+			getline(cin,Password);
+		}
+	}
+}
+
+void login()
+{
+	int choice;
+	bool a = false;
+	while (!a)
+	{
+		cout << "Welcome to flight management system. \n";
+		cout << "Login as :\n";
+		cout << "1)Existing User\n";
+		cout << "2)New User \n";
+		cout << "3)Admin \n";
+		cout << "Choose 1 ,2 or 3 :";
+		cin  >> choice ;
+
+		if (choice == 1)
+		{
+			system("cls");
+			CusLogin();
+			a = true;
+		}
+		else if (choice == 2)
+		{
+			CusRegister();
+		}
+		else if (choice == 3)
+		{
+			ALogin();
+			a = true;
+		}
+		else
+		{
+			cout<< "Invalid selection please choose only 1 , 2 or 3 .\n";
+
+		}
+	}
+
+}
 int main()
 {
 	double num;
 	srand(time(NULL));
-	App a;
-	a.run();
+	login();
+	// App a;
+	// a.run();
 
-
+	system("pause");
 
 
 
