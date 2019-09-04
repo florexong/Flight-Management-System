@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
 #include <fstream>
 #include <time.h>
-#include <vector>
+#include <cstdlib>
+#include <iomanip>
 
 
 using namespace std;
@@ -61,10 +64,8 @@ public:
 	bool check_passort();
 	int get_milecard(){return milecard;}
 
-
-
-
 };
+
 
 class Airline{
 public:
@@ -103,27 +104,31 @@ public:
 };
 
 
-
 class Flight_Handling{
 private:
 public:
 };
 
-//////////////////   Passanger ///////////////////////
-void set_info(){
+class App{
+private:
+public:
+	void run();
+
+};
+
+//////////////////   Passenger ///////////////////////
+void Passenger::set_info(){
 	string First_name;
 	string Last_name;
 	string title;
 	int passport_num;
+	int passport_numf;   
+	vector<string> row; 
+    string line, word, temp;
 
 	cout << "Welcome"<<endl;
 	cout <<"Enter passport num"<<endl;
 	cin >>passport_num;
-	// checking for new or old user ....
-	// if new get name then display option
-	//esle display option
-
-
 }
 
 
@@ -153,7 +158,7 @@ double  Airport:: get_totalmiles(string Dairport , string Aairport){  // get tot
 			num = 6284;
 			return num;
 		}
-		else
+		else //Sarawak
 		{
 			num = 1293;
 			return num;
@@ -306,11 +311,11 @@ void  Airport::set_pairNC(){
 	this->countryA = set_country();
 }
 
-void Airport::set_countryA(){
+void Airport::set_countryA(){ // overwrite 
 	countryA = set_country();
 }
 
-void Airport::set_countryD(){
+void Airport::set_countryD(){//overwrite
 	countryD = set_country();
 }
 
@@ -367,10 +372,7 @@ int Airline::get_airplane_size(string airline_name){  // give the plane size
 
 }
 
-int main()
-{
-	double num;
-	srand(time(NULL));
+void App::run(){
 	vector<Airport*> list1;
 
 	Airport* air;
@@ -393,7 +395,7 @@ int main()
 			list1[i]->set_countryA();
 			list1[i]->set_countryD();
 
-		}
+		}	
 	}
 
 	vector<Airport>::iterator it;
@@ -404,6 +406,15 @@ int main()
 		cout <<"Arrival  :"<<(*it)->get_countryA()<<endl;
 		cout <<"------------------------\n";
 	}
+}
+
+int main()
+{
+	double num;
+	srand(time(NULL));
+	App a;
+	a.run();
+
 
 
 
